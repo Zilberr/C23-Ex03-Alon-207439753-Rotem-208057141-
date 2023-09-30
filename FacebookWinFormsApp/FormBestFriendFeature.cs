@@ -7,13 +7,15 @@ namespace BasicFacebookFeatures
 {
     public partial class FormBestFriendFeature : Form
     {
+        private User User { get; set; }
+        private Dictionary<User, int> FriendsActivityCount { get; set; }
+        private Updater Updater { get; set; }
         public FormBestFriendFeature(User i_User)
         {
             InitializeComponent();
             User = i_User;
+            Updater = new Updater();
         }
-        private User User { get; set; }
-        private Dictionary<User, int> FriendsActivityCount { get; set; }
         private void showBestFriendButton_Click(object sender, EventArgs e)
         {
             if (propertiesCheckedListBox.CheckedItems.Count != 0)
@@ -40,6 +42,9 @@ namespace BasicFacebookFeatures
             bool likesChecked = false, commentsChecked = false, tagsChecked = false;
             int maxActivityCount = 0;
             string nameOfMaxActivityFriend = "";
+            PostsActivityUpdater postsActivityUpdater = new PostsActivityUpdater(User, FriendsActivityCount);
+            AlbumsActivityUpdater albumsActivityUpdater = new AlbumsActivityUpdater(User, FriendsActivityCount);
+
 
             foreach (string itemName in propertiesCheckedListBox.CheckedItems)
             {
@@ -57,8 +62,11 @@ namespace BasicFacebookFeatures
                 }
             }
 
-            updateFromPosts(likesChecked, commentsChecked, tagsChecked);
-            updateFromPhotos(likesChecked, commentsChecked, tagsChecked);
+            Updater.UpdateStrategy = postsActivityUpdater;
+            Updater.Update(likesChecked, commentsChecked, tagsChecked);
+            Updater.UpdateStrategy = albumsActivityUpdater;
+            Updater.Update(likesChecked, commentsChecked, tagsChecked);
+
 
             foreach (var keyValuePairs in FriendsActivityCount)
             {
@@ -71,79 +79,8 @@ namespace BasicFacebookFeatures
 
             return nameOfMaxActivityFriend;
         }
-        private void updateFromPosts(bool i_LikesChecked, bool i_CommentsChecked, bool i_TagsChecked)
-        {
-            foreach (Post post in User.Posts)
-            {
 
-                if (i_TagsChecked && post.TaggedUsers != null)
-                {
-                    foreach (User user in post.TaggedUsers)
-                    {
-                        incrementFriendInDictionary(user);
-                    }
-                }
 
-                if (i_LikesChecked && post.LikedBy != null)
-                {
-                    foreach (User user in post.LikedBy)
-                    {
-                        incrementFriendInDictionary(user);
-                    }
-                }
-
-                if (i_CommentsChecked && post.Comments != null)
-                {
-                    foreach (Comment comment in post.Comments)
-                    {
-                        incrementFriendInDictionary(comment.From);
-                    }
-                }
-            }
-        }
-        private void updateFromPhotos(bool i_LikesChecked, bool i_CommentsChecked, bool i_TagsChecked)
-        {
-            foreach (Album album in User.Albums)
-            {
-                foreach (Photo photo in album.Photos)
-                {
-                    if (i_TagsChecked && photo.Tags != null)
-                    {
-                        foreach (PhotoTag tag in photo.Tags)
-                        {
-                            incrementFriendInDictionary(tag.User);
-                        }
-                    }
-
-                    if (i_LikesChecked && photo.LikedBy != null)
-                    {
-                        foreach (User user in photo.LikedBy)
-                        {
-                            incrementFriendInDictionary(user);
-                        }
-                    }
-
-                    if (i_CommentsChecked && photo.Comments != null)
-                    {
-                        foreach (Comment comment in photo.Comments)
-                        {
-                            incrementFriendInDictionary(comment.From);
-                        }
-                    }
-                }
-            }
-        }
-        private void incrementFriendInDictionary(User i_UserToIncrement)
-        {
-            if (FriendsActivityCount.ContainsKey(i_UserToIncrement))
-            {
-                FriendsActivityCount[i_UserToIncrement]++;
-            }
-            else
-            {
-                FriendsActivityCount.Add(i_UserToIncrement, 1);
-            }
-        }
         private void closeButton_Click(object sender, EventArgs e)
         {
             Close();

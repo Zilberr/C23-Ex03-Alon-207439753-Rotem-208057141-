@@ -1,7 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Windows.Forms.DataVisualization.Charting;
-using System;
 
 namespace BasicFacebookFeatures
 {
@@ -32,6 +31,7 @@ namespace BasicFacebookFeatures
         protected abstract string GetSeriesName();
         protected virtual SeriesChartType GetChartType()
         {
+            
             return SeriesChartType.Column;
         }
     }
@@ -40,6 +40,7 @@ namespace BasicFacebookFeatures
         public PostsChartUpdater(User i_User, Chart i_StatsChart) : base(i_User, i_StatsChart)
         {
             Series series = new Series("PostCountByYear");
+
             StatsChart.Series.Add(series);
         }
         protected override Dictionary<int, int> CollectData()
@@ -64,17 +65,19 @@ namespace BasicFacebookFeatures
         }
         protected override string GetSeriesName()
         {
+            
             return "PostCountByYear";
         }
     }
+
     internal class AlbumsChartUpdater : ChartUpdater
     {
         public AlbumsChartUpdater(User i_User, Chart i_StatsChart) : base(i_User, i_StatsChart)
         {
             Series series = new Series("AlbumsCountByYear");
+            
             StatsChart.Series.Add(series);
             StatsChart.Titles.Add("Albums Chart By Year");
-
         }
         protected override Dictionary<int, int> CollectData()
         {
@@ -98,10 +101,12 @@ namespace BasicFacebookFeatures
         }
         protected override string GetSeriesName()
         {
+            
             return "AlbumsCountByYear";
         }
         protected override SeriesChartType GetChartType()
         {
+            
             return SeriesChartType.Pie;
         }
     }

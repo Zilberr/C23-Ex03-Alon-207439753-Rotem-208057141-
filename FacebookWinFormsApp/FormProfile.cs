@@ -1,7 +1,6 @@
 using System;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
-using System.Threading;
 using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
@@ -98,11 +97,12 @@ namespace BasicFacebookFeatures
         }
         private void fetchAlbumsButton_Click(object sender, EventArgs e)
         {
+            LabelObserver labelAlbumsFetcherObserver = new LabelObserver(m_AlbumsFetcher.Label);
+            PictureBoxObserver albumsFetchersImageObserver = new PictureBoxObserver(m_AlbumsFetcher.Image);
+            
             m_ProfileLogic.FetchAlbums(m_AlbumsFetcher);
             m_AlbumsFetcher.ListBox.Show();
             m_AlbumsFetcher.Label.Visible = true;
-            LabelObserver labelAlbumsFetcherObserver = new LabelObserver(m_AlbumsFetcher.Label);
-            PictureBoxObserver albumsFetchersImageObserver = new PictureBoxObserver(m_AlbumsFetcher.Image);
             m_ParentModeFacade.AttachToParentMode(labelAlbumsFetcherObserver);
             m_ParentModeFacade.AttachToParentMode(albumsFetchersImageObserver);
         }
@@ -112,35 +112,38 @@ namespace BasicFacebookFeatures
         }
         private void fetchStatusesButton_Click(object sender, EventArgs e)
         {
+            LabelObserver labelStatusesFetcherObserver = new LabelObserver(m_StatusesFetcher.Label);
+            PanelObserver statusesPanelObserver = new PanelObserver(statusesPanel);
+            
             statusBindingSource.DataSource = User.Statuses;
             m_StatusesFetcher.ListBox.Show();
             m_StatusesFetcher.Label.Visible = true;
             statusesPanel.Visible = true;
-            LabelObserver labelStatusesFetcherObserver = new LabelObserver(m_StatusesFetcher.Label);
-            PanelObserver statusesPanelObserver = new PanelObserver(statusesPanel);
             m_ParentModeFacade.AttachToParentMode(labelStatusesFetcherObserver);
             m_ParentModeFacade.AttachToParentMode(statusesPanelObserver);
         }
         private void showActivityByPostsButton_Click(object sender, EventArgs e)
         {
             PostsChartUpdater postsChartUpdater = new PostsChartUpdater(User, statsChart);
+            ChartObserver statsChartObserver = new ChartObserver(statsChart);
+
             postsChartUpdater.DisplayChart();
             showActivityByPostsButton.Enabled = false;
             showActivityByAlbumsButton.Enabled = false;
             m_ParentModeFacade.DetachToParentMode(m_PostsButtonObserver);
             m_ParentModeFacade.DetachToParentMode(m_AlbumsButtonObserver);
-            ChartObserver statsChartObserver = new ChartObserver(statsChart);
             m_ParentModeFacade.AttachToParentMode(statsChartObserver);
         }
         private void showActivityByAlbumsButton_Click(object sender, EventArgs e)
         {
             AlbumsChartUpdater albumsChartUpdater = new AlbumsChartUpdater(User, statsChart);
+            ChartObserver statsChartObserver = new ChartObserver(statsChart);
+
             albumsChartUpdater.DisplayChart();
             showActivityByAlbumsButton.Enabled = false;
             showActivityByPostsButton.Enabled = false;
             m_ParentModeFacade.DetachToParentMode(m_PostsButtonObserver);
             m_ParentModeFacade.DetachToParentMode(m_AlbumsButtonObserver);
-            ChartObserver statsChartObserver = new ChartObserver(statsChart);
             m_ParentModeFacade.AttachToParentMode(statsChartObserver);
         }
         private void showFriendsList_Click(object sender, EventArgs e)
@@ -155,12 +158,13 @@ namespace BasicFacebookFeatures
         private void findBestFriendButton_Click(object sender, EventArgs e)
         {
             FormBestFriendFeature featuresForm = new FormBestFriendFeature(User);
+            
             featuresForm.ShowDialog();
         }
         private void parentModeButton_Click(object sender, EventArgs e)
         {
-
             FormInputPassword parentModeForm = FormInputPassword.GetInstance();
+            
             parentModeForm.ShowDialog();
             if (m_ActivatedParentMode)
             {
@@ -172,6 +176,7 @@ namespace BasicFacebookFeatures
                 m_ActivatedParentMode = true;
                 parentModeButton.Text = "Deactivate parent mode";
             }
+
             m_ParentModeFacade.NotifyToObservers(m_ActivatedParentMode);
         }
         private class ParentModeFacade
@@ -193,6 +198,5 @@ namespace BasicFacebookFeatures
                 }
             }
         }
-
     }
 }

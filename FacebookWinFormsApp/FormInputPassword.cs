@@ -31,8 +31,8 @@ namespace BasicFacebookFeatures
         private void confirmButton_Click(object sender, EventArgs e)
         {
             string enteredPassword = passwordTextBox.Text;
+            
             passwordTextBox.Clear();
-
             if (m_IsFirstTime)
             {
                 m_Password = enteredPassword;
@@ -54,7 +54,6 @@ namespace BasicFacebookFeatures
                     passwordTextBox.Clear();
                 }
             }
-
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace BasicFacebookFeatures
@@ -12,7 +7,6 @@ namespace BasicFacebookFeatures
     {
         void Update(bool i_ParentModeStatus);
     }
-
     public class TextBoxObserver : IObserverForParentMode
     {
         private TextBox m_TextBox;
@@ -35,7 +29,6 @@ namespace BasicFacebookFeatures
             }
         }
     }
-
     public class PictureBoxObserver : IObserverForParentMode
     {
         private PictureBox m_PictureBox;
@@ -58,7 +51,6 @@ namespace BasicFacebookFeatures
             }
         }
     }
-
     public class ButtonObserver : IObserverForParentMode
     {
         private Button m_Button;
@@ -81,7 +73,6 @@ namespace BasicFacebookFeatures
             }
         }
     }
-
     public class PanelObserver : IObserverForParentMode
     {
         private Panel m_Panel;
@@ -104,7 +95,6 @@ namespace BasicFacebookFeatures
             }
         }
     }
-
     public class ChartObserver : IObserverForParentMode
     {
         private Chart m_Chart;
@@ -127,7 +117,6 @@ namespace BasicFacebookFeatures
             }
         }
     }
-
     public class LabelObserver : IObserverForParentMode
     {
         private Label m_Label;

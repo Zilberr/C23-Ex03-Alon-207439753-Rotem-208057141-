@@ -14,7 +14,7 @@ namespace BasicFacebookFeatures
             FriendsActivity = i_Dict;
         }
         public abstract void UpdateActivityDict(bool i_LikesChecked, bool i_CommentsChecked, bool i_TagsChecked);
-        protected void incrementFriendInDictionary(User i_UserToIncrement)
+        protected void IncrementFriendInDictionary(User i_UserToIncrement)
         {
             if (FriendsActivity.ContainsKey(i_UserToIncrement))
             {

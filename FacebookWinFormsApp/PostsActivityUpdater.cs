@@ -7,18 +7,16 @@ namespace BasicFacebookFeatures
     {
         public PostsActivityUpdater(User i_User, Dictionary<User, int> i_Dict) : base(i_User, i_Dict)
         {
-
         }
         public override void UpdateActivityDict(bool i_LikesChecked, bool i_CommentsChecked, bool i_TagsChecked)
         {
             foreach (Post post in User.Posts)
             {
-
                 if (i_TagsChecked && post.TaggedUsers != null)
                 {
                     foreach (User user in post.TaggedUsers)
                     {
-                        incrementFriendInDictionary(user);
+                        IncrementFriendInDictionary(user);
                     }
                 }
 
@@ -26,7 +24,7 @@ namespace BasicFacebookFeatures
                 {
                     foreach (User user in post.LikedBy)
                     {
-                        incrementFriendInDictionary(user);
+                        IncrementFriendInDictionary(user);
                     }
                 }
 
@@ -34,7 +32,7 @@ namespace BasicFacebookFeatures
                 {
                     foreach (Comment comment in post.Comments)
                     {
-                        incrementFriendInDictionary(comment.From);
+                        IncrementFriendInDictionary(comment.From);
                     }
                 }
             }

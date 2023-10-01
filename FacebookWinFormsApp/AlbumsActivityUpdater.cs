@@ -6,10 +6,8 @@ namespace BasicFacebookFeatures
 {
     internal class AlbumsActivityUpdater : UpdateStrategy
     {
-
         public AlbumsActivityUpdater(User i_User, Dictionary<User, int> i_Dict) : base(i_User, i_Dict)
         {
-
         }
         public override void UpdateActivityDict(bool i_LikesChecked, bool i_CommentsChecked, bool i_TagsChecked)
         {
@@ -21,7 +19,7 @@ namespace BasicFacebookFeatures
                     {
                         foreach (PhotoTag tag in photo.Tags)
                         {
-                            incrementFriendInDictionary(tag.User);
+                            IncrementFriendInDictionary(tag.User);
                         }
                     }
 
@@ -29,7 +27,7 @@ namespace BasicFacebookFeatures
                     {
                         foreach (User user in photo.LikedBy)
                         {
-                            incrementFriendInDictionary(user);
+                            IncrementFriendInDictionary(user);
                         }
                     }
 
@@ -37,7 +35,7 @@ namespace BasicFacebookFeatures
                     {
                         foreach (Comment comment in photo.Comments)
                         {
-                            incrementFriendInDictionary(comment.From);
+                            IncrementFriendInDictionary(comment.From);
                         }
                     }
                 }

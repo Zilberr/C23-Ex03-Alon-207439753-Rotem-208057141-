@@ -13,6 +13,7 @@ namespace BasicFacebookFeatures
         public PictureBox Image { get; set; }
         public Label Label { get; set; }
         private ComplexedItemForFetching() { }
+        
         public class Builder
         {
             private ComplexedItemForFetching m_ComplexedItem = new ComplexedItemForFetching();

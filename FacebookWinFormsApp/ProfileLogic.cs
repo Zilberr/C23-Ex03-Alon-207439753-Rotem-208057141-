@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms.DataVisualization.Charting;
-using FacebookWrapper.ObjectModel;
+﻿using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
@@ -39,7 +36,6 @@ namespace BasicFacebookFeatures
                 if (selectedAlbum.Pictures != null)
                 {
                     i_ComplexAlbum.Image.LoadAsync(selectedAlbum.PictureAlbumURL);
-
                 }
                 else
                 {

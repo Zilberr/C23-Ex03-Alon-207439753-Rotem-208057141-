@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumsActivityUpdater.cs" />
+    <Compile Include="ChartUpdater.cs" />
     <Compile Include="IObserverForParentMode.cs" />
     <Compile Include="UpdateStrategy.cs" />
     <Compile Include="ComplexedItemForFetching.cs" />

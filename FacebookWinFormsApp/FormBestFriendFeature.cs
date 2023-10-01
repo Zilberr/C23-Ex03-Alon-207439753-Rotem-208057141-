@@ -38,13 +38,10 @@ namespace BasicFacebookFeatures
         }
         private string calculateBestFacebookFriend()
         {
-
             FriendsActivityCount = new Dictionary<User, int>();
             bool likesChecked = false, commentsChecked = false, tagsChecked = false;
             int maxActivityCount = 0;
             string nameOfMaxActivityFriend = "";
-
-
 
             foreach (string itemName in propertiesCheckedListBox.CheckedItems)
             {
@@ -90,16 +87,12 @@ namespace BasicFacebookFeatures
                     PostsActivityUpdater postsActivityUpdater = new PostsActivityUpdater(User, FriendsActivityCount);
                     Updater.UpdateStrategy = postsActivityUpdater;
                 }
-
                 Updater.Update(likesChecked, commentsChecked, tagsChecked);
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
-
-           
-
 
             foreach (var keyValuePairs in FriendsActivityCount)
             {

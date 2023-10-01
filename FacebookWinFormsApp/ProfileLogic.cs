@@ -21,57 +21,6 @@ namespace BasicFacebookFeatures
                 i_AlbumsFetcher.ListBox.Items.Add(album);
             }
         }
-        public void DisplayChart(Chart i_StatsChart)
-        {
-            Dictionary<int, int> postsCount = new Dictionary<int, int>();
-            Dictionary<int, int> albumsCount = new Dictionary<int, int>();
-
-            foreach (Post post in User.Posts)
-            {
-                int year = post.CreatedTime.Value.Year;
-
-                if (postsCount.ContainsKey(year))
-                {
-                    postsCount[year]++;
-                }
-                else
-                {
-                    postsCount[year] = 1;
-                }
-            }
-
-            foreach (Album album in User.Albums)
-            {
-                int year = album.CreatedTime.Value.Year;
-
-                if (albumsCount.ContainsKey(year))
-                {
-                    albumsCount[year]++;
-                }
-                else
-                {
-                    albumsCount[year] = 1;
-                }
-            }
-
-            i_StatsChart.Invoke(new Action(() =>
-            {
-                foreach (var keyValuePairs in postsCount)
-                {
-                    i_StatsChart.Series["PostCountByYear"].Points.AddXY(keyValuePairs.Key, keyValuePairs.Value);
-                }
-
-                foreach (var keyValuePairs in albumsCount)
-                {
-                    i_StatsChart.Series["AlbumsCountByYear"].Points.AddXY(keyValuePairs.Key, keyValuePairs.Value);
-                }
-
-                i_StatsChart.Series["PostCountByYear"].ChartType = SeriesChartType.Column;
-                i_StatsChart.Series["AlbumsCountByYear"].ChartType = SeriesChartType.Column;
-                i_StatsChart.ChartAreas[0].AxisX.Title = "Year";
-                i_StatsChart.ChartAreas[0].AxisY.Title = "Count";
-            }));
-        }
         public void FetchFriends(ComplexedItemForFetching i_FriendsFetcher)
         {
             i_FriendsFetcher.ListBox.Items.Clear();

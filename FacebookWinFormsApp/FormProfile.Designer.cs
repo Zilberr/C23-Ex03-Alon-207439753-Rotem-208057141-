@@ -32,10 +32,8 @@ namespace BasicFacebookFeatures
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label messageLabel;
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.IDBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.homeAddress = new System.Windows.Forms.TextBox();
@@ -45,8 +43,7 @@ namespace BasicFacebookFeatures
             this.firstName = new System.Windows.Forms.TextBox();
             this.profilePicture = new System.Windows.Forms.PictureBox();
             this.statsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.showActivityButton = new System.Windows.Forms.Button();
-            this.myActivityTimlineHeader = new System.Windows.Forms.Label();
+            this.showActivityByPostsButton = new System.Windows.Forms.Button();
             this.logOutButton = new System.Windows.Forms.Button();
             this.findBestFriendButton = new System.Windows.Forms.Button();
             this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -55,6 +52,7 @@ namespace BasicFacebookFeatures
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.statusesPanel = new System.Windows.Forms.Panel();
             this.statusInstructionLabel = new System.Windows.Forms.Label();
+            this.showActivityByAlbumsButton = new System.Windows.Forms.Button();
             messageLabel = new System.Windows.Forms.Label();
             this.IDBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.profilePicture)).BeginInit();
@@ -177,48 +175,28 @@ namespace BasicFacebookFeatures
             // 
             // statsChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.statsChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.statsChart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.statsChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.statsChart.Legends.Add(legend2);
             this.statsChart.Location = new System.Drawing.Point(658, 106);
             this.statsChart.Name = "statsChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "PostCountByYear";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "AlbumsCountByYear";
-            this.statsChart.Series.Add(series1);
-            this.statsChart.Series.Add(series2);
             this.statsChart.Size = new System.Drawing.Size(992, 357);
             this.statsChart.TabIndex = 8;
             this.statsChart.Text = "chart1";
             this.statsChart.Visible = false;
             // 
-            // showActivityButton
+            // showActivityByPostsButton
             // 
-            this.showActivityButton.BackColor = System.Drawing.SystemColors.Menu;
-            this.showActivityButton.Font = new System.Drawing.Font("Myanmar Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.showActivityButton.Location = new System.Drawing.Point(1563, 232);
-            this.showActivityButton.Name = "showActivityButton";
-            this.showActivityButton.Size = new System.Drawing.Size(306, 46);
-            this.showActivityButton.TabIndex = 11;
-            this.showActivityButton.Text = "Show my activity timline";
-            this.showActivityButton.UseVisualStyleBackColor = false;
-            this.showActivityButton.Click += new System.EventHandler(this.showActivityButton_Click);
-            // 
-            // myActivityTimlineHeader
-            // 
-            this.myActivityTimlineHeader.AutoSize = true;
-            this.myActivityTimlineHeader.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.myActivityTimlineHeader.Location = new System.Drawing.Point(951, 71);
-            this.myActivityTimlineHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.myActivityTimlineHeader.Name = "myActivityTimlineHeader";
-            this.myActivityTimlineHeader.Size = new System.Drawing.Size(288, 33);
-            this.myActivityTimlineHeader.TabIndex = 7;
-            this.myActivityTimlineHeader.Text = "My Activity Timeline";
-            this.myActivityTimlineHeader.Visible = false;
+            this.showActivityByPostsButton.BackColor = System.Drawing.SystemColors.Menu;
+            this.showActivityByPostsButton.Font = new System.Drawing.Font("Myanmar Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showActivityByPostsButton.Location = new System.Drawing.Point(1696, 222);
+            this.showActivityByPostsButton.Name = "showActivityByPostsButton";
+            this.showActivityByPostsButton.Size = new System.Drawing.Size(352, 46);
+            this.showActivityByPostsButton.TabIndex = 11;
+            this.showActivityByPostsButton.Text = "Show activity timeline by posts";
+            this.showActivityByPostsButton.UseVisualStyleBackColor = false;
+            this.showActivityByPostsButton.Click += new System.EventHandler(this.showActivityByPostsButton_Click);
             // 
             // logOutButton
             // 
@@ -237,10 +215,10 @@ namespace BasicFacebookFeatures
             // 
             this.findBestFriendButton.BackColor = System.Drawing.SystemColors.Menu;
             this.findBestFriendButton.Font = new System.Drawing.Font("Myanmar Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findBestFriendButton.Location = new System.Drawing.Point(1563, 286);
+            this.findBestFriendButton.Location = new System.Drawing.Point(1696, 276);
             this.findBestFriendButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.findBestFriendButton.Name = "findBestFriendButton";
-            this.findBestFriendButton.Size = new System.Drawing.Size(306, 48);
+            this.findBestFriendButton.Size = new System.Drawing.Size(352, 48);
             this.findBestFriendButton.TabIndex = 16;
             this.findBestFriendButton.Text = "Find my best facebook friend";
             this.findBestFriendButton.UseVisualStyleBackColor = false;
@@ -254,10 +232,10 @@ namespace BasicFacebookFeatures
             // 
             this.parentModeButton.BackColor = System.Drawing.SystemColors.Menu;
             this.parentModeButton.Font = new System.Drawing.Font("Myanmar Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.parentModeButton.Location = new System.Drawing.Point(1563, 343);
+            this.parentModeButton.Location = new System.Drawing.Point(1696, 333);
             this.parentModeButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.parentModeButton.Name = "parentModeButton";
-            this.parentModeButton.Size = new System.Drawing.Size(306, 48);
+            this.parentModeButton.Size = new System.Drawing.Size(352, 48);
             this.parentModeButton.TabIndex = 18;
             this.parentModeButton.Text = "Activate parent mode";
             this.parentModeButton.UseVisualStyleBackColor = false;
@@ -297,19 +275,31 @@ namespace BasicFacebookFeatures
             this.statusInstructionLabel.TabIndex = 22;
             this.statusInstructionLabel.Text = "Rewrite your status! ";
             // 
+            // showActivityByAlbumsButton
+            // 
+            this.showActivityByAlbumsButton.BackColor = System.Drawing.SystemColors.Menu;
+            this.showActivityByAlbumsButton.Font = new System.Drawing.Font("Myanmar Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.showActivityByAlbumsButton.Location = new System.Drawing.Point(1696, 166);
+            this.showActivityByAlbumsButton.Name = "showActivityByAlbumsButton";
+            this.showActivityByAlbumsButton.Size = new System.Drawing.Size(352, 46);
+            this.showActivityByAlbumsButton.TabIndex = 19;
+            this.showActivityByAlbumsButton.Text = "Show activity timeline by albums";
+            this.showActivityByAlbumsButton.UseVisualStyleBackColor = false;
+            this.showActivityByAlbumsButton.Click += new System.EventHandler(this.showActivityByAlbumsButton_Click);
+            // 
             // FormProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1978, 969);
+            this.ClientSize = new System.Drawing.Size(2178, 969);
+            this.Controls.Add(this.showActivityByAlbumsButton);
             this.Controls.Add(this.parentModeButton);
             this.Controls.Add(this.statusesPanel);
             this.Controls.Add(this.findBestFriendButton);
             this.Controls.Add(this.logOutButton);
-            this.Controls.Add(this.showActivityButton);
-            this.Controls.Add(this.myActivityTimlineHeader);
+            this.Controls.Add(this.showActivityByPostsButton);
             this.Controls.Add(this.statsChart);
             this.Controls.Add(this.IDBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -327,7 +317,6 @@ namespace BasicFacebookFeatures
             this.statusesPanel.ResumeLayout(false);
             this.statusesPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -341,8 +330,7 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.TextBox firstName;
         private System.Windows.Forms.DataVisualization.Charting.Chart statsChart;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label myActivityTimlineHeader;
-        private System.Windows.Forms.Button showActivityButton;
+        private System.Windows.Forms.Button showActivityByPostsButton;
         private System.Windows.Forms.Button logOutButton;
         private System.Windows.Forms.Button findBestFriendButton;
         private BindingSource postBindingSource;
@@ -351,5 +339,6 @@ namespace BasicFacebookFeatures
         private TextBox messageTextBox;
         private Panel statusesPanel;
         private Label statusInstructionLabel;
+        private Button showActivityByAlbumsButton;
     }
 }

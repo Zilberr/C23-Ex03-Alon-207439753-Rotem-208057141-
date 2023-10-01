@@ -14,12 +14,13 @@ namespace BasicFacebookFeatures
         private ParentModeFacade m_ParentModeFacade;
         private ProfileLogic m_ProfileLogic;
         private bool m_ActivatedParentMode = false;
-
+        private ButtonObserver m_PostsButtonObserver;
+        private ButtonObserver m_AlbumsButtonObserver;
         public FormProfile(User i_UserLoggedIn)
         {
             InitializeComponent();
             InitializeComplexComponents();
-            m_ParentModeFacade = new ParentModeFacade(this);
+            m_ParentModeFacade = new ParentModeFacade();
             User = i_UserLoggedIn;
             m_ProfileLogic = new ProfileLogic(User);
             initializeID();
@@ -78,11 +79,22 @@ namespace BasicFacebookFeatures
             TextBoxObserver birthdayObserver = new TextBoxObserver(birthday);
             PictureBoxObserver profilePictureObserver = new PictureBoxObserver(profilePicture);
             ButtonObserver findBestFriendButtonObserver = new ButtonObserver(findBestFriendButton);
+            ButtonObserver albumsFetchButton = new ButtonObserver(m_AlbumsFetcher.Button);
+            ButtonObserver statusesFetchButton = new ButtonObserver(m_StatusesFetcher.Button);
+            ButtonObserver friendsFetchButton = new ButtonObserver(m_FriendsFetcher.Button);
+            m_PostsButtonObserver = new ButtonObserver(showActivityByPostsButton);
+            m_AlbumsButtonObserver = new ButtonObserver(showActivityByAlbumsButton);
+
             m_ParentModeFacade.AttachToParentMode(homeAddressObserver);
             m_ParentModeFacade.AttachToParentMode(emailAddressObserver);
             m_ParentModeFacade.AttachToParentMode(birthdayObserver);
             m_ParentModeFacade.AttachToParentMode(profilePictureObserver);
             m_ParentModeFacade.AttachToParentMode(findBestFriendButtonObserver);
+            m_ParentModeFacade.AttachToParentMode(albumsFetchButton);
+            m_ParentModeFacade.AttachToParentMode(statusesFetchButton);
+            m_ParentModeFacade.AttachToParentMode(friendsFetchButton);
+            m_ParentModeFacade.AttachToParentMode(m_PostsButtonObserver);
+            m_ParentModeFacade.AttachToParentMode(m_AlbumsButtonObserver);
         }
         private void fetchAlbumsButton_Click(object sender, EventArgs e)
         {
@@ -109,16 +121,27 @@ namespace BasicFacebookFeatures
             m_ParentModeFacade.AttachToParentMode(labelStatusesFetcherObserver);
             m_ParentModeFacade.AttachToParentMode(statusesPanelObserver);
         }
-        private void showActivityButton_Click(object sender, EventArgs e)
+        private void showActivityByPostsButton_Click(object sender, EventArgs e)
         {
-            new Thread(() => m_ProfileLogic.DisplayChart(statsChart)).Start();
-            statsChart.Show();
-            myActivityTimlineHeader.Visible = true;
-            showActivityButton.Enabled = false;
+            PostsChartUpdater postsChartUpdater = new PostsChartUpdater(User, statsChart);
+            postsChartUpdater.DisplayChart();
+            showActivityByPostsButton.Enabled = false;
+            showActivityByAlbumsButton.Enabled = false;
+            m_ParentModeFacade.DetachToParentMode(m_PostsButtonObserver);
+            m_ParentModeFacade.DetachToParentMode(m_AlbumsButtonObserver);
             ChartObserver statsChartObserver = new ChartObserver(statsChart);
-            LabelObserver myActivityTimlineHeaderObserver = new LabelObserver(myActivityTimlineHeader);
             m_ParentModeFacade.AttachToParentMode(statsChartObserver);
-            m_ParentModeFacade.AttachToParentMode(myActivityTimlineHeaderObserver);
+        }
+        private void showActivityByAlbumsButton_Click(object sender, EventArgs e)
+        {
+            AlbumsChartUpdater albumsChartUpdater = new AlbumsChartUpdater(User, statsChart);
+            albumsChartUpdater.DisplayChart();
+            showActivityByAlbumsButton.Enabled = false;
+            showActivityByPostsButton.Enabled = false;
+            m_ParentModeFacade.DetachToParentMode(m_PostsButtonObserver);
+            m_ParentModeFacade.DetachToParentMode(m_AlbumsButtonObserver);
+            ChartObserver statsChartObserver = new ChartObserver(statsChart);
+            m_ParentModeFacade.AttachToParentMode(statsChartObserver);
         }
         private void showFriendsList_Click(object sender, EventArgs e)
         {
@@ -153,13 +176,7 @@ namespace BasicFacebookFeatures
         }
         private class ParentModeFacade
         {
-            private FormProfile FormProfile { get; set; }
-            private List<IObserverForParentMode> m_Observers;
-            public ParentModeFacade(FormProfile i_FormProfile)
-            {
-                FormProfile = i_FormProfile;
-                m_Observers = new List<IObserverForParentMode>();
-            }
+            private List<IObserverForParentMode> m_Observers = new List<IObserverForParentMode>();
             public void AttachToParentMode(IObserverForParentMode i_Observer)
             {
                 m_Observers.Add(i_Observer);
@@ -176,5 +193,6 @@ namespace BasicFacebookFeatures
                 }
             }
         }
+
     }
 }
